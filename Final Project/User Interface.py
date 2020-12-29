@@ -69,7 +69,7 @@ SMALLER_FONT = ('UD Digi Kyokasho NK-R', 9)
 CONGRATS_FONT = ('UD Digi Kyokasho NK-R', 20)
 
 year_list = []
-for i in range(2019, 2026):
+for i in range(2021, 2026):
     year_list += [str(i)]
 month_list = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 the_thirties = ['Apr', 'Jun', 'Sep', 'Nov']
@@ -119,7 +119,21 @@ class StartPage(tk.Frame):
         button1 = tk.Button(self, text='輸入收支', font=SMALL_FONT, command=lambda: root.show_frame(InputPage)).pack()
         button2 = tk.Button(self, text='設定花費預算', font=SMALL_FONT, command=lambda: root.show_frame(GoalPage)).pack()
         button3 = tk.Button(self, text='檢視收支狀況', font=SMALL_FONT, command=lambda: root.show_frame(CheckPage)).pack()
-        button4 = tk.Button(self, text='好好犒賞自己吧！', font=SMALL_FONT, command=lambda: root.show_frame(RewardPage)).pack()
+        button4 = tk.Button(self, text='好好犒賞自己吧！', font=SMALL_FONT, command=lambda: root.show_frame(RewardPage)).pack(pady=5)
+        consumption = func.period_avg(location, '2021-01-01', '2023-01-01')
+        space11 = tk.Label(self, text='').pack()
+        avg_label = tk.Label(self, text='截至目前為止，你消費的月平均為'+str(consumption)+'元', font=SMALL_FONT).pack()
+        if consumption >= 22881:
+
+            tree = Image.open('C:\\Users\\Joanne Huang\\Desktop\\final_project\\tree.png')
+            photo = ImageTk.PhotoImage(tree)
+            tree_photo = tk.Label(self, image=photo).pack()
+
+        else:
+            die_label = tk.Label(self, text='沒有達到2019年人平均月消費22881元，樹很傷心，枯掉了。', font=SMALLER_FONT, fg='grey').pack()
+            tree = Image.open('C:\\Users\\Joanne Huang\\Desktop\\final_project\\die.png')
+            photo = ImageTk.PhotoImage(tree)
+            tree_photo = tk.Label(self, image=photo).pack()
 
 class InputPage(tk.Frame):
     def __init__(self, parent, root):
